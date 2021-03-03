@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "login";
+}
+
+<!-- Login Section -->
+<section id="login" class="login-overlay">
+    <div class="login-parent">
+        <div class="login-child">
+            <img class="img-responsive" src="../../img/home/top-logo.png" alt="">
+            <div class="login-details">
+                <div class="text-center">
+                    <p>Login</p>
+                    <p>Enter your email address and password to login</p>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>Email*</p>
+                                <input type="text" class="form-control" id="email" placeholder="Enter Email">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>Password* <span><a href="javascript:void(0)" onclick="openForgot()" id="forgot-pswd">Forgot Password?</a></span></p>
+                                <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <label>
+                                    <input type="checkbox" name="remember"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <Button class="form-control">Login</Button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 no-account">
+                            <p>Don't have an account? <span>@Html.ActionLink("Login", "register", "appAuth")</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- login section ends -->
