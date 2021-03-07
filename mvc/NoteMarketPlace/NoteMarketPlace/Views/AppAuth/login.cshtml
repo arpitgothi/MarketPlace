@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "login";
+    @model NoteMarketPlace.Models.login
+}
+
+<!-- Login Section -->
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section id="login" class="login-overlay">
+        <div class="login-parent">
+            <div class="login-child">
+                <img class="img-responsive" src="../../img/home/top-logo.png" alt="">
+                <div class="login-details">
+                    <div class="text-center">
+                        <p>Login</p>
+                        <p>Enter your email address and password to login</p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+                                    <p>Email*</p>
+                                    @Html.LabelFor(model => model.Email)
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @id = "email", @class = "form-control", @placeholder = "Enter your email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    <!--<input type="text" class="form-control" id="email" placeholder="Enter Email">-->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group error">
+                                    @if (@ViewBag.NotValidUser != null)
+                                    {
+                                        <label style="color:#A94442"> @ViewBag.NotValidUser</label>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+                                    <p>Password*  <span>@Html.ActionLink("Forgot Password?", "ForgotPassword", "appAuth", new { @id = "forgot-pswd" }) </span></p>
+                                    @Html.LabelFor(model => model.Password)
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "pswd", @class = "form-control", @placeholder = "Enter your password" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    <!--<input type="password" class="form-control" id="password" placeholder="Enter Password">-->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+                                    <label>
+                                        <input type="checkbox" name="remember"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+                                    <Button class="form-control">Login</Button>
+                                </div>
+                            </div>
+                            <div class="col-md-12 no-account">
+                                <p>Don't have an account? <span>@Html.ActionLink("SignUp", "register", "appAuth")</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<!-- login section ends -->
