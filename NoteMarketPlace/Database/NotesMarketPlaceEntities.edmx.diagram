@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eaad25b3429e49daaaa5169c9c7b82f1" Name="Diagram1">
+      <Diagram DiagramId="eaad25b3429e49daaaa5169c9c7b82f1" Name="Diagram1" ZoomLevel="121">
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblCountry" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblDownload" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblNoteCategory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblSellerNotesReportedIssue" Width="1.5" PointX="10.5" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblSellerNotesReview" Width="1.5" PointX="13.5" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblSystemConfiguration" Width="1.5" PointX="2.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="NotesMarketPlaceModel.tblUser" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NotesMarketPlaceModel.tblUser" Width="1.5" PointX="3.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblUserProfile" Width="1.5" PointX="6" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="NotesMarketPlaceModel.tblUserRole" Width="1.5" PointX="1.5" PointY="23.75" IsExpanded="true" />
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblSellerNotes_tblCountries" ManuallyRouted="false" />
@@ -37,6 +37,7 @@
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblSellerNotesReviews_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblUser_tblUserRole" ManuallyRouted="false" />
         <AssociationConnector Association="NotesMarketPlaceModel.FK_tblUserProfile_tblUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NotesMarketPlaceModel.tblContactUs" Width="1.5" PointX="5.375" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

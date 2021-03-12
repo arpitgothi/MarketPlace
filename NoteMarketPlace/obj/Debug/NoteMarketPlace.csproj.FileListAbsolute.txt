@@ -77,3 +77,7 @@ G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.Co
 G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CopyComplete
 G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.dll
 G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.pdb
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.dll
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.SqlServer.dll
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.xml
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.SqlServer.xml

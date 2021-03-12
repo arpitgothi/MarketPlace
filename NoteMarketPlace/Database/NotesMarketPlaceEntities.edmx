@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NotesMarketPlaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="NotesMarketPlaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblContactUs">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Message" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblCountries">
           <Key>
             <PropertyRef Name="ID" />
@@ -182,6 +191,7 @@
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="tblUserProfile">
           <Key>
@@ -413,18 +423,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblUser_tblUserRole">
-          <End Role="tblUserRole" Type="Self.tblUserRole" Multiplicity="1" />
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblUser">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblUserProfile_tblReferenceData">
           <End Role="tblReferenceData" Type="Self.tblReferenceData" Multiplicity="0..1" />
           <End Role="tblUserProfile" Type="Self.tblUserProfile" Multiplicity="*" />
@@ -450,6 +448,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NotesMarketPlaceModelStoreContainer">
+          <EntitySet Name="tblContactUs" EntityType="Self.tblContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountries" EntityType="Self.tblCountries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDownloads" EntityType="Self.tblDownloads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblNoteCategories" EntityType="Self.tblNoteCategories" Schema="dbo" store:Type="Tables" />
@@ -527,10 +526,6 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSellerNotesReviews" EntitySet="tblSellerNotesReviews" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblUser_tblUserRole" Association="Self.FK_tblUser_tblUserRole">
-            <End Role="tblUserRole" EntitySet="tblUserRole" />
-            <End Role="tblUser" EntitySet="tblUser" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblUserProfile_tblReferenceData" Association="Self.FK_tblUserProfile_tblReferenceData">
             <End Role="tblReferenceData" EntitySet="tblReferenceData" />
             <End Role="tblUserProfile" EntitySet="tblUserProfile" />
@@ -540,8 +535,7 @@
             <End Role="tblUserProfile" EntitySet="tblUserProfile" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NotesMarketPlaceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -757,6 +751,7 @@
           <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblUser" FromRole="tblUser" ToRole="tblSellerNotesReviews" />
           <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
           <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUser" FromRole="tblUser" ToRole="tblUserProfile" />
+          <Property Name="ActivationCode" Type="Guid" />
         </EntityType>
         <EntityType Name="tblUserProfile">
           <Key>
@@ -1117,7 +1112,17 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblUserProfile" EntitySet="tblUserProfiles" />
           </AssociationSet>
+          <EntitySet Name="tblContactUs1" EntityType="NotesMarketPlaceModel.tblContactUs" />
         </EntityContainer>
+        <EntityType Name="tblContactUs">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1298,6 +1303,7 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="NotesMarketPlaceModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1350,6 +1356,16 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContactUs1">
+            <EntityTypeMapping TypeName="NotesMarketPlaceModel.tblContactUs">
+              <MappingFragment StoreEntitySet="tblContactUs">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

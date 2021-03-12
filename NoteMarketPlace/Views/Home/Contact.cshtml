@@ -1,55 +1,71 @@
 ﻿
 @{
     ViewBag.Title = "Contact";
+    @model NoteMarketPlace.Models.contact
 }
 
 <!-- Contact-Us Section -->
-<section id="contact-us">
-    <div class="contact-us-heading">
-        <p>Contact Us</p>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 touch">
-                <p>Get in Touch</p>
-                <p>Let us know how to get back to you</p>
+@using (Html.BeginForm("SaveRecord", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <section id="contact-us">
+        <div class="contact-us-heading">
+            <p>Contact Us</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 touch">
+                    <p>Get in Touch</p>
+                    <p>Let us know how to get back to you</p>
+                </div>
+            </div>
+            <div class="contact-us-feed">
+                <form>
+                    <div class="row questions">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>Full Name*</p>
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @type = "text", @class = "form-control", @id = "name", @placeholder = "Enter your full name" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>Email Address*</p>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @class = "form-control", @id = "email", @placeholder = "Email Address" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>Subject*</p>
+                                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @type = "text", @class = "form-control", @id = "subject", @placeholder = "Subject" } })
+                                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <p>Message*</p>
+                                @Html.TextAreaFor(model => model.Message, new { @id = "message", @class = "form-control", placeholder = "Comments.." })
+                                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="submit" class="btn btn-block btn-primary" />
+
+                </form>
             </div>
         </div>
-        <div class="contact-us-feed">
-            <form>
-                <div class="row questions">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <p>Full Name*</p>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter your full name">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <p>Email Address*</p>
-                                    <input type="email" class="form-control" id="email" placeholder="Email Address">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <p>Subject*</p>
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <p>Message*</p>
-                            <textarea class="form-control" id="message" placeholder="Comments..."></textarea>
-                        </div>
-                    </div>
-                </div>
-                <a class="btn btn-general btn-work smooth-scroll" href="#about" title="Download" role="button">SUBMIT</a>
-            </form>
-        </div>
-    </div>
-</section>
-<!-- Contact-Us Section Ends -->
+    </section>
+
+}
+
+<!-- Contact-Us Section Ends <a class="btn btn-general btn-work smooth-scroll" href="#about" title="Download" role="button">SUBMIT</a>-->

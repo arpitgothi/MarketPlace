@@ -132,19 +132,68 @@
     <Compile Include="Controllers\appAuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\userController.cs" />
+    <Compile Include="Database\NotesMarketPlaceEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotesMarketPlaceEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\NotesMarketPlaceEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\NotesMarketPlaceEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotesMarketPlaceEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblContactUs.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblCountry.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblDownload.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblNoteCategory.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblNoteType.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblReferenceData.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblSellerNote.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblSellerNotesAttachement.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblSellerNotesReportedIssue.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblSellerNotesReview.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblSystemConfiguration.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblUser.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblUserProfile.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tblUserRole.cs">
+      <DependentUpon>NotesMarketPlaceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\contact.cs" />
+    <Compile Include="Models\login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +212,16 @@
     <Content Include="Content\responsive-tabs\responsive-tabs.css" />
     <Content Include="Content\responsive-tabs\responsive-tabs.min.css" />
     <Content Include="Content\responsive.css" />
+    <Content Include="Database\NotesMarketPlaceEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NotesMarketPlaceEntities.edmx</DependentUpon>
+      <LastGenOutput>NotesMarketPlaceEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\NotesMarketPlaceEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NotesMarketPlaceEntities.edmx</DependentUpon>
+      <LastGenOutput>NotesMarketPlaceEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -200,11 +259,8 @@
     <Content Include="img\home\seller.png" />
     <Content Include="img\home\top-logo.png" />
     <Content Include="img\home\twitter.png" />
+    <Content Include="img\preloader\preloadexxxr.gif" />
     <Content Include="img\preloader\preloader.gif" />
-    <Content Include="Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
@@ -213,13 +269,13 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
     <Content Include="img\home.zip" />
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="Database\NotesMarketPlaceEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>NotesMarketPlaceEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </None>
+    <Content Include="Database\NotesMarketPlaceEntities.edmx.diagram">
+      <DependentUpon>NotesMarketPlaceEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -274,10 +330,10 @@
     <Content Include="Views\Home\noteDetails.cshtml" />
     <Content Include="Views\Shared\_adminLayout.cshtml" />
     <Content Include="Views\Admin\addAdmin.cshtml" />
+    <Content Include="Views\AppAuth\VerifyAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

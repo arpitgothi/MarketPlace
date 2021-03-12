@@ -38,5 +38,6 @@ namespace NoteMarketPlace.Database
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblUserProfile> tblUserProfiles { get; set; }
         public virtual DbSet<tblUserRole> tblUserRoles { get; set; }
+        public virtual DbSet<tblContactUs> tblContactUs { get; set; }
     }
 }
