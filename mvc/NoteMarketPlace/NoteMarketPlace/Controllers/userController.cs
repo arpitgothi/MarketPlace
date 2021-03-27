@@ -126,7 +126,7 @@ namespace NoteMarketPlace.Controllers
                 obj.Course = model.Course;
                 obj.CourseCode = model.CourseCode;
                 obj.Professor = model.Professor;
-                obj.Status = 7;
+                obj.Status = 9;
                 obj.IsPaid = model.IsPaid;
                 if (obj.IsPaid)
                 {

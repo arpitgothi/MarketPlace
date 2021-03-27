@@ -109,12 +109,12 @@ namespace NoteMarketPlace.Controllers
 
             var data = from c in tblSellerNotes
                            join t1 in tblCountries on c.Country equals t1.ID
-                           where c.Status == 7
+                           where c.Status == 9
                            select new noteData { sellerNote = c, Country = t1 };
 
             ViewBag.Count = (from c in tblSellerNotes
                              join t1 in tblCountries on c.Country equals t1.ID
-                             where c.Status == 7
+                             where c.Status == 9
                              select c).Count();
 
             return View(data);
