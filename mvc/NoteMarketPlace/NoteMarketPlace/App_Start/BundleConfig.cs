@@ -27,6 +27,8 @@ namespace NoteMarketPlace
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                       "~/Scripts/script.js"));
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/modernizr-*"));
 
         }
     }

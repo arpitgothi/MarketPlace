@@ -175,6 +175,7 @@
     <EntitySetMapping Name="tblUsers">
       <EntityTypeMapping TypeName="NotesMarketPlaceModel.tblUser">
         <MappingFragment StoreEntitySet="tblUser">
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />

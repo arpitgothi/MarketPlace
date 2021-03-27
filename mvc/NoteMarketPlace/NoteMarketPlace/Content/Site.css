@@ -1452,3 +1452,8 @@ footer {
 .mynav_dropdown:hover .mynav_dropdown-content {
     display: block;
 }
+
+.error {
+    color: red;
+    font-size: 13px;
+}

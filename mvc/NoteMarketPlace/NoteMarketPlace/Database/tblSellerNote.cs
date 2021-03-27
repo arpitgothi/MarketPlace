@@ -11,7 +11,6 @@ namespace NoteMarketPlace.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class tblSellerNote
@@ -31,21 +30,17 @@ namespace NoteMarketPlace.Database
         public Nullable<int> ActionBy { get; set; }
         public string AdminRemarks { get; set; }
         public Nullable<System.DateTime> PublishedDate { get; set; }
-        [Required]
         public string Title { get; set; }
-        [Required]
         public int Category { get; set; }
         public string DisplayPicture { get; set; }
         public Nullable<int> NoteType { get; set; }
         public Nullable<int> NumberofPages { get; set; }
-        [Required]
         public string Description { get; set; }
         public string UniversityName { get; set; }
         public Nullable<int> Country { get; set; }
         public string Course { get; set; }
         public string CourseCode { get; set; }
         public string Professor { get; set; }
-        [Required]
         public bool IsPaid { get; set; }
         public Nullable<decimal> SellingPrice { get; set; }
         public string NotesPreview { get; set; }
@@ -55,9 +50,9 @@ namespace NoteMarketPlace.Database
         public Nullable<int> ModificationBy { get; set; }
         public bool IsActive { get; set; }
         public HttpPostedFileBase uploadnote { get; set; }
+
         public HttpPostedFileBase displaypic { get; set; }
         public HttpPostedFileBase notepreview { get; set; }
-
         public virtual tblCountry tblCountry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDownload> tblDownloads { get; set; }

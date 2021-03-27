@@ -10,6 +10,8 @@ using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Web.Security;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Net;
 
 namespace NoteMarketPlace.Controllers
 {
@@ -74,8 +76,8 @@ namespace NoteMarketPlace.Controllers
             {
                 if (model.Password == model.RePassword && model.Password != "")
                 {
-                    var result = connectionDB.tblUsers.Where(m => m.EmailID == email).FirstOrDefault();
-                    if (result == null)
+                    var result = IsEmailExist(email);
+                    if (result==false)
                     {
 
                         tblUser obj = new tblUser();
@@ -92,6 +94,8 @@ namespace NoteMarketPlace.Controllers
                         obj.CreatedDate = DateTime.Now;
                         obj.CreatedBy = null;
                         obj.RoleID = 103;
+
+                        obj.ActivationCode = Guid.NewGuid();
                         if (ModelState.IsValid)
                         {
                             dbobj.tblUsers.Add(obj);
@@ -99,6 +103,7 @@ namespace NoteMarketPlace.Controllers
                             {  
                                 dbobj.SaveChanges();
                                 ModelState.Clear();
+                                sendEmailVerificationLink(model.EmailID,obj.ActivationCode.ToString());
                                 FormsAuthentication.SetAuthCookie(model.EmailID, true);
                                 return RedirectToAction("Profile", "User");
                             }
@@ -142,6 +147,13 @@ namespace NoteMarketPlace.Controllers
             }
             return false;
         }*/
+        public static bool IsEmailExist(string email)
+       {
+            var connectionDB = new NotesMarketPlaceEntities();
+            var v = connectionDB.tblUsers.Where(m => m.EmailID == email).FirstOrDefault();
+            return v !=null;
+       }
+
         public static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -185,13 +197,131 @@ namespace NoteMarketPlace.Controllers
                 return false;
             }
         }
+        //Verify Account  
+
+        [HttpGet]
+        public ActionResult VerifyAccount(string id)
+        {
+            bool Status = false;
+            using (NotesMarketPlaceEntities dc = new NotesMarketPlaceEntities())
+            {
+                dc.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid 
+                                                                // Confirm password does not match issue on save changes
+                var v = dc.tblUsers.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
+                if (v != null)
+                {
+                    v.IsEmailVerified = true;
+                    dc.SaveChanges();
+                    Status = true;
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid Request";
+                }
+            }
+            ViewBag.Status = Status;
+            return View();
+        }
+
+
+        /*public void sendEmailVerificationLink(String email, string activationCode)
+        {
+            var verifyUrl = "/appAuth/VerifyAccount/" + activationCode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+            var fromEmail = new MailAddress("tempmail7895@gmail.com", "lamda Function");
+            var toEmail = new MailAddress(email);
+            var fromemailPassword = "ASDfghjkL.123@";
+            string subject = "Your account is sucesfully created";
+            string body = "<br> we are exicited to tell you that your account is sucesfully created " +
+                "please click on the below link to verify the account <br> " +
+                "<a href='" + link + "'>" + link + "</a>";
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(fromEmail.Address,fromemailPassword)
+            };
+            using (var message = new MailMessage(fromEmail, toEmail) { Subject = subject, Body = body, IsBodyHtml = true })
+                smtp.Send(message);
+        }*/
+        public void sendEmailVerificationLink(String email, string activationCode, String emailFor = "VerifyAccount")
+        {
+            var verifyUrl = "/appAuth/VerifyAccount/" + activationCode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+            var fromEmail = new MailAddress("***********@gmail.com", "lamda Function");
+            var toEmail = new MailAddress(email);
+            var fromemailPassword = "*************";
+            string tempPass = activationCode;
+            string subject = "";
+            string body = "";
 
 
 
+            if (emailFor == "VerifyAccount")
+            {
+                subject = "Your account is sucesfully created";
+                body = "<br> we are exicited to tell you that your account is sucesfully created " +
+                    "please click on the below link to verify the account <br> " +
+                    "<a href='" + link + "'>" + link + "</a>";
+            }
+            else if (emailFor == "ResetPassword")
+            {
+                subject = "New Password for your account!";
+                body = "<br> Hii,<br> We got request for reset Password of your account" +
+                    "please use this password temporarily for the account <br> " +
+                    "Temp Password :" + tempPass;
+            }
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(fromEmail.Address, fromemailPassword)
+            };
+            using (var message = new MailMessage(fromEmail, toEmail) { Subject = subject, Body = body, IsBodyHtml = true })
+                smtp.Send(message);
+        }
+
+
+
+        //FORGOT PASSWORD SECTION
         public ActionResult forgotPassword()
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult forgotPassword(tblUser model)
+        {
+            string message = "";
+            bool Status = false;
+            using (NotesMarketPlaceEntities dc = new NotesMarketPlaceEntities())
+            {
+                var account = dc.tblUsers.Where(a => a.EmailID == model.EmailID).FirstOrDefault();
+                if (account != null)
+                {
+                    Random r = new Random();
+                    string resetCode = r.Next(10001,99999).ToString();
+                    sendEmailVerificationLink(account.EmailID, resetCode, "ResetPassword");
+                    account.Password = resetCode;
+                    dc.Configuration.ValidateOnSaveEnabled = false;
+                    dc.SaveChanges();
+                }
+                else
+                {
+                    message = "Account not found";
+                }
+            }
+
+            return View();
+        }
+
 
     }
     

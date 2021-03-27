@@ -212,6 +212,7 @@
     <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblUser" FromRole="tblUser" ToRole="tblSellerNotesReviews" />
     <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
     <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUser" FromRole="tblUser" ToRole="tblUserProfile" />
+    <Property Name="ActivationCode" Type="Guid" />
   </EntityType>
   <EntityType Name="tblUserProfile">
     <Key>

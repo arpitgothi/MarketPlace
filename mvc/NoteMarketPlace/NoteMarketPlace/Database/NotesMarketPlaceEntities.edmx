@@ -191,6 +191,7 @@
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="tblUserProfile">
           <Key>
@@ -422,18 +423,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblUser_tblUserRole">
-          <End Role="tblUserRole" Type="Self.tblUserRole" Multiplicity="1" />
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblUser">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblUserProfile_tblReferenceData">
           <End Role="tblReferenceData" Type="Self.tblReferenceData" Multiplicity="0..1" />
           <End Role="tblUserProfile" Type="Self.tblUserProfile" Multiplicity="*" />
@@ -536,10 +525,6 @@
           <AssociationSet Name="FK_tblSellerNotesReviews_tblUser" Association="Self.FK_tblSellerNotesReviews_tblUser">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSellerNotesReviews" EntitySet="tblSellerNotesReviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUser_tblUserRole" Association="Self.FK_tblUser_tblUserRole">
-            <End Role="tblUserRole" EntitySet="tblUserRole" />
-            <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUserProfile_tblReferenceData" Association="Self.FK_tblUserProfile_tblReferenceData">
             <End Role="tblReferenceData" EntitySet="tblReferenceData" />
@@ -766,6 +751,7 @@
           <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblUser" FromRole="tblUser" ToRole="tblSellerNotesReviews" />
           <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
           <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUser" FromRole="tblUser" ToRole="tblUserProfile" />
+          <Property Name="ActivationCode" Type="Guid" />
         </EntityType>
         <EntityType Name="tblUserProfile">
           <Key>
@@ -1317,6 +1303,7 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="NotesMarketPlaceModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
