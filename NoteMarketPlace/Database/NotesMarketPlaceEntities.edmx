@@ -100,7 +100,7 @@
           <Property Name="PublishedDate" Type="datetime" />
           <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Category" Type="int" Nullable="false" />
-          <Property Name="DisplayPicture" Type="varchar" MaxLength="500" />
+          <Property Name="DisplayPicture" Type="varchar(max)" />
           <Property Name="NoteType" Type="int" />
           <Property Name="NumberofPages" Type="int" />
           <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
@@ -111,7 +111,7 @@
           <Property Name="Professor" Type="varchar" MaxLength="100" />
           <Property Name="IsPaid" Type="bit" Nullable="false" />
           <Property Name="SellingPrice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="NotesPreview" Type="nvarchar(max)" />
+          <Property Name="NotesPreview" Type="varchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="ModificationDate" Type="datetime" />
@@ -191,7 +191,7 @@
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="ActivationCode" Type="uniqueidentifier" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="tblUserProfile">
           <Key>
@@ -351,18 +351,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSellerNotesReportedIssues_tblDownloads">
-          <End Role="tblDownloads" Type="Self.tblDownloads" Multiplicity="1" />
-          <End Role="tblSellerNotesReportedIssues" Type="Self.tblSellerNotesReportedIssues" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDownloads">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblSellerNotesReportedIssues">
-              <PropertyRef Name="AgainstDownloadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblSellerNotesReportedIssues_tblSellerNotes">
           <End Role="tblSellerNotes" Type="Self.tblSellerNotes" Multiplicity="1" />
           <End Role="tblSellerNotesReportedIssues" Type="Self.tblSellerNotesReportedIssues" Multiplicity="*" />
@@ -420,6 +408,18 @@
             </Principal>
             <Dependent Role="tblSellerNotesReviews">
               <PropertyRef Name="ReviewedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblUserRole">
+          <End Role="tblUserRole" Type="Self.tblUserRole" Multiplicity="1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="RoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -502,10 +502,6 @@
             <End Role="tblSellerNotes" EntitySet="tblSellerNotes" />
             <End Role="tblSellerNotesAttachements" EntitySet="tblSellerNotesAttachements" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSellerNotesReportedIssues_tblDownloads" Association="Self.FK_tblSellerNotesReportedIssues_tblDownloads">
-            <End Role="tblDownloads" EntitySet="tblDownloads" />
-            <End Role="tblSellerNotesReportedIssues" EntitySet="tblSellerNotesReportedIssues" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblSellerNotesReportedIssues_tblSellerNotes" Association="Self.FK_tblSellerNotesReportedIssues_tblSellerNotes">
             <End Role="tblSellerNotes" EntitySet="tblSellerNotes" />
             <End Role="tblSellerNotesReportedIssues" EntitySet="tblSellerNotesReportedIssues" />
@@ -525,6 +521,10 @@
           <AssociationSet Name="FK_tblSellerNotesReviews_tblUser" Association="Self.FK_tblSellerNotesReviews_tblUser">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSellerNotesReviews" EntitySet="tblSellerNotesReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblUserRole" Association="Self.FK_tblUser_tblUserRole">
+            <End Role="tblUserRole" EntitySet="tblUserRole" />
+            <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUserProfile_tblReferenceData" Association="Self.FK_tblUserProfile_tblReferenceData">
             <End Role="tblReferenceData" EntitySet="tblReferenceData" />
@@ -635,7 +635,7 @@
           <Property Name="PublishedDate" Type="DateTime" Precision="3" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Category" Type="Int32" Nullable="false" />
-          <Property Name="DisplayPicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NoteType" Type="Int32" />
           <Property Name="NumberofPages" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
@@ -646,7 +646,7 @@
           <Property Name="Professor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IsPaid" Type="Boolean" Nullable="false" />
           <Property Name="SellingPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="NotesPreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotesPreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="ModificationDate" Type="DateTime" Precision="3" />
@@ -751,7 +751,7 @@
           <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblUser" FromRole="tblUser" ToRole="tblSellerNotesReviews" />
           <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
           <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUser" FromRole="tblUser" ToRole="tblUserProfile" />
-          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="ActivationCode" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="tblUserProfile">
           <Key>

@@ -38,13 +38,18 @@ namespace NoteMarketPlace.Controllers
                 if (result.RoleID == 101 || result.RoleID == 102)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    return RedirectToAction("", "Admin");
+                    return RedirectToAction("dashboard", "Admin");
                 }
 
                 else if (result.RoleID == 103)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    return RedirectToAction("", "User");
+                    
+                    if(dbobj.tblUserProfiles.Where(m=> m.UserID==result.ID).FirstOrDefault() == null)
+                    {
+                        return RedirectToAction("profile", "user");
+                    }
+                    return RedirectToAction("dashboard", "User");
                 }
                 else
                     ViewBag.NotValidUser = "Something went wrong";
@@ -81,14 +86,14 @@ namespace NoteMarketPlace.Controllers
                     {
 
                         tblUser obj = new tblUser();
-
                         obj.FirstName = model.FirstName;
                         obj.LastName = model.LastName;
                         obj.EmailID = model.EmailID;
+                        //obj.Password = crypto.Hash(model.Password);
                         obj.Password = model.Password;
                         obj.IsEmailVerified = false;
                         obj.IsActive = true;
-                        obj.RePassword = "1223";
+                        obj.RePassword = "1234";
                         obj.ModifiedBy = null;
                         obj.ModifiedDate = null;
                         obj.CreatedDate = DateTime.Now;
@@ -99,6 +104,7 @@ namespace NoteMarketPlace.Controllers
                         if (ModelState.IsValid)
                         {
                             dbobj.tblUsers.Add(obj);
+                            
                             try
                             {  
                                 dbobj.SaveChanges();
@@ -125,17 +131,17 @@ namespace NoteMarketPlace.Controllers
                     }
                     else
                     {
-                        ViewBag.UserExist = "This Email is already exists";
+                        ViewBag.Exist = "This Email is already exists";
                     }
                 }
                 else
                 {
-                    ViewBag.NotValidPassword = "Password and Re-enter password must be same";
+                    ViewBag.notvalidpass = "Password and Re-enter password must be same";
                 }
             }
             else
             {
-                ViewBag.NotValidEmail = "Email is not valid";
+                ViewBag.notvalidEmail = "Email is not valid";
             }
             return View("register");
         }
@@ -224,7 +230,7 @@ namespace NoteMarketPlace.Controllers
         }
 
 
-        public void sendEmailVerificationLink(String email, string activationCode)
+        /*public void sendEmailVerificationLink(String email, string activationCode)
         {
             var verifyUrl = "/appAuth/VerifyAccount/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
@@ -246,16 +252,89 @@ namespace NoteMarketPlace.Controllers
             };
             using (var message = new MailMessage(fromEmail, toEmail) { Subject = subject, Body = body, IsBodyHtml = true })
                 smtp.Send(message);
+        }*/
+        public void sendEmailVerificationLink(String email, string activationCode, String emailFor = "VerifyAccount")
+        {
+            var verifyUrl = "/appAuth/VerifyAccount/" + activationCode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+            var fromEmail = new MailAddress("***********@gmail.com", "lamda Function");
+            var toEmail = new MailAddress(email);
+            var fromemailPassword = "*************";
+            string tempPass = activationCode;
+            string subject = "";
+            string body = "";
+
+
+
+            if (emailFor == "VerifyAccount")
+            {
+                subject = "Your account is sucesfully created";
+                body = "<br> we are exicited to tell you that your account is sucesfully created " +
+                    "please click on the below link to verify the account <br> " +
+                    "<a href='" + link + "'>" + link + "</a>";
+            }
+            else if (emailFor == "ResetPassword")
+            {
+                subject = "New Password for your account!";
+                body = "<br> Hii,<br> We got request for reset Password of your account" +
+                    "please use this password temporarily for the account <br> " +
+                    "Temp Password :" + tempPass;
+            }
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(fromEmail.Address, fromemailPassword)
+            };
+            using (var message = new MailMessage(fromEmail, toEmail) { Subject = subject, Body = body, IsBodyHtml = true })
+                smtp.Send(message);
         }
 
 
 
-
-
+        //FORGOT PASSWORD SECTION
         public ActionResult forgotPassword()
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult forgotPassword(tblUser model)
+        {
+            string message = "";
+            bool Status = false;
+            using (NotesMarketPlaceEntities fp = new NotesMarketPlaceEntities())
+            {
+                var account = fp.tblUsers.Where(a => a.EmailID == model.EmailID).FirstOrDefault();
+                if (account != null)
+                {
+                    Random r = new Random();
+                    string resetCode = r.Next(10001,99999).ToString();
+                    sendEmailVerificationLink(account.EmailID, resetCode, "ResetPassword");
+                    account.Password = resetCode;
+                    fp.Configuration.ValidateOnSaveEnabled = false;
+                    fp.SaveChanges();
+                }
+                else
+                {
+                    message = "Account not found";
+                }
+            }
+
+            return View();
+        }
+        public ActionResult logout()
+        {
+            FormsAuthentication.SignOut();
+            return View("login","appAuth");
+        }
+
+
+
 
     }
     

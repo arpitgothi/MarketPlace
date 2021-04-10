@@ -1,6 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "noteUnderReview";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    @model IEnumerable<NoteMarketPlace.Models.noteData>
 }
 
 <!-- note under review-->
@@ -49,98 +51,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Software Engineer</td>
-                                <td>IT</td>
-                                <td>Khyati Patel</td>
-                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
-                                <td>09-09-19, 10:10</td>
-                                <td>InReview</td>
-                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
-                                <td class="dropdown">
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
+                            @{ int i = 0;}
+                            @foreach (var n in Model)
+                            {
+                                i += 1;
+
+                                
+                                <tr>
+                                    <td style="display:none;">@n.sellerNote.ID</td>
+                                    <td>@i</td>
+                                    <td class="title">@Html.DisplayFor(modelItem => n.sellerNote.Title)</td>
+                                    <td>@Html.DisplayFor(modelItem => n.NoteCategory.Name)</td>
+
+                                    <td>@string.Concat(n.User.FirstName, " ", n.User.LastName)</td>
+
+                                    <td><a class="link-margin" href="#"><img src="~/img/dashboard/eye.png"></a></td>
+
+
+                                    <td> @Html.DisplayFor(modelItem => n.sellerNote.CreatedDate)</td>
+
+                                    <td>@Html.DisplayFor(modelItem => n.referenceData.Values)</td>
+
+                                    <td><button class="btn btn-success approve-btn tbl-action-btn">Approve </button> &nbsp;&nbsp;<button class="btn btn-danger reject-btn tbl-action-btn">Reject </button> &nbsp;&nbsp;<button class="btn btn-light InReview-btn tbl-action-btn">InReview </button></td>
+                                    <td class="dropdown">
+                                        <div id="dots" class="mynav-dropdown">
+                                            <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                            <div class="dropdown-menu action-menu mynav-dropdown-content dropdown-menu-right ">
+                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/showBook/@n.sellerNote.ID '">View More Details</button>
+                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/AdminDownload/@n.sellerNote.ID'">Download Note</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Computer Basic</td>
-                                <td>Computer</td>
-                                <td>Khyati Patel</td>
-                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Submitted For Review</td>
-                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
-                                <td class="dropdown">
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Human Body</td>
-                                <td>Science</td>
-                                <td>Khyati Patel</td>
-                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
-                                <td>09-09-19, 10:10</td>
-                                <td>InReview</td>
-                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
-                                <td class="dropdown">
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>World War 2</td>
-                                <td>History</td>
-                                <td>Khyati Patel</td>
-                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
-                                <td>17-09-19, 10:10</td>
-                                <td>InReview</td>
-                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
-                                <td class="dropdown">
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Accounting</td>
-                                <td>Account</td>
-                                <td>Khyati Patel</td>
-                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
-                                <td>10-09-19, 10:10</td>
-                                <td>InReview</td>
-                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
-                                <td class="dropdown">
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- </thead> -->
-                        </tbody>
+                                    </td>
+                                </tr>
+                                }
+
+
+                            </tbody>
                     </table>
                 </div>
                 <div class="text-center" aria-label="Page navigation example">
@@ -157,5 +103,79 @@
             </div>
         </div>
     </div>
+    <!-- note under review Ends-->
+    <div id="reject-popup" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p class="popup-heading">Some text in the Modal..</p>
+            <form action="/Admin/Rejected" method="post">
+                <input type="hidden" name="noteId" value="27" />
+                <p>Remark<span class="required">*</span></p>
+                <textarea placeholder="Write Remark" class="form-control" id="text-area" name="rejectRemark" required></textarea>
+
+
+
+
+                <br />
+                <div class="text-right">
+                    <Button class="btn btn-danger">&nbsp;Reject&nbsp;</Button>
+
+                    <a class="btn btn-default close-btn">&nbsp;Cancel&nbsp;</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <div id="Approve-popup" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <p class="popup-heading">Some text in the Modal..</p>
+            <form action="/Admin/Approved" method="post">
+                <input type="hidden" name="noteId" value="" />
+                <p>Please Press Yes to Continue</p>
+
+                <div class="text-right">
+                    <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                    <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="InReview-popup" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <p class="popup-heading">Some text in the Modal..</p>
+            <form action="/Admin/InReview" method="post">
+                <input type="hidden" name="noteId" value="" />
+                <p>Please Press Yes to Continue</p>
+
+                <div class="text-right">
+                    <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                    <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
 </section>
-<!-- note under review Ends-->
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/script.js"></script>

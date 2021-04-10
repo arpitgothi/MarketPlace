@@ -128,10 +128,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="appAuthRoles.cs" />
+    <Compile Include="base64converter.cs" />
+    <Compile Include="CommonClass\mail.cs" />
+    <Compile Include="CommonClass\img2strConverter.cs" />
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\appAuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\userController.cs" />
+    <Compile Include="crypto.cs" />
     <Compile Include="Database\NotesMarketPlaceEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,8 +197,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="mailAgent.cs" />
+    <Compile Include="Models\dashboard.cs" />
+    <Compile Include="Models\userData.cs" />
+    <Compile Include="Models\userProfile.cs" />
     <Compile Include="Models\contact.cs" />
     <Compile Include="Models\login.cs" />
+    <Compile Include="Models\noteData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -277,11 +287,15 @@
       <DependentUpon>NotesMarketPlaceEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\admin-script.js" />
+    <Content Include="Scripts\customForwarding.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -321,7 +335,7 @@
     <Content Include="Views\Admin\myProfile.cshtml" />
     <Content Include="Views\Admin\manageSysConfig.cshtml" />
     <Content Include="Views\Admin\noteUnderReview.cshtml" />
-    <Content Include="Views\Admin\publishedNotes.cshtml" />
+    <Content Include="Views\Admin\dashboard.cshtml" />
     <Content Include="Views\Admin\downloadedNotes.cshtml" />
     <Content Include="Views\Admin\rejectedNotes.cshtml" />
     <Content Include="Views\Admin\spamReport.cshtml" />
@@ -331,6 +345,12 @@
     <Content Include="Views\Shared\_adminLayout.cshtml" />
     <Content Include="Views\Admin\addAdmin.cshtml" />
     <Content Include="Views\AppAuth\VerifyAccount.cshtml" />
+    <Content Include="Views\user\noteDetails.cshtml" />
+    <Content Include="Views\user\buyerRequest.cshtml" />
+    <Content Include="Views\user\myDownloads.cshtml" />
+    <Content Include="Views\user\soldNotes.cshtml" />
+    <Content Include="Views\user\rejectedNotes.cshtml" />
+    <Content Include="Views\user\aaa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

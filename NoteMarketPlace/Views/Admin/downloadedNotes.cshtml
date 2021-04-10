@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "downloadedNotes";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
 <!-- a downloaded note -->
@@ -10,67 +11,68 @@
             <div class="col-md-12">
                 <p class="page-heading">Downloaded Note</p>
             </div>
-            <div>
-            </div>
-            <div class="col-md-2 col-sm-2 form-group">
-                <p>Note</p>
-                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
-                    <option>
-                        Selet note
-                    </option>
-                    <option>
-                        Khyati
-                    </option>
-                    <option>
-                        Raj
-                    </option>
-                    <option>
-                        Rahul
-                    </option>
-                </select>
-            </div>
-            <div class="col-md-2 col-sm-2 form-group">
-                <p>Seller</p>
-                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
-                    <option>
-                        Selet Seller
-                    </option>
-                    <option>
-                        Khyati
-                    </option>
-                    <option>
-                        Raj
-                    </option>
-                    <option>
-                        Rahul
-                    </option>
-                </select>
-            </div>
-            <div class="col-md-2 col-sm-2 form-group">
-                <p>Buyer</p>
-                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
-                    <option>
-                        Selet Buyer
-                    </option>
-                    <option>
-                        Khyati
-                    </option>
-                    <option>
-                        Raj
-                    </option>
-                    <option>
-                        Rahul
-                    </option>
-                </select>
-            </div>
-            <div class="col-md-6 col-sm-6 search-div download-search-div">
-                <div class="col-md-8 col-sm-8 col-xs-8">
-                    <input class="form-control search-input" placeholder="Search..." type="text">
+            @using (Html.BeginForm("downloadedNotes", "Admin", FormMethod.Get))
+            {
+                <div class="col-md-2 col-sm-2 form-group">
+                    <p>Note</p>
+                    <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                        <option>
+                            Selet note
+                        </option>
+                        <option>
+                            Khyati
+                        </option>
+                        <option>
+                            Raj
+                        </option>
+                        <option>
+                            Rahul
+                        </option>
+                    </select>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
-                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+                <div class="col-md-2 col-sm-2 form-group">
+                    <p>Seller</p>
+                    <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                        <option>
+                            Selet Seller
+                        </option>
+                        <option>
+                            Khyati
+                        </option>
+                        <option>
+                            Raj
+                        </option>
+                        <option>
+                            Rahul
+                        </option>
+                    </select>
                 </div>
-            </div>
+                <div class="col-md-2 col-sm-2 form-group">
+                    <p>Buyer</p>
+                    <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                        <option>
+                            Selet Buyer
+                        </option>
+                        <option>
+                            Khyati
+                        </option>
+                        <option>
+                            Raj
+                        </option>
+                        <option>
+                            Rahul
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-sm-6 search-div download-search-div">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <input class="btn btn-general btn-work" type="submit" value="Search" />
+                    </div>
+                </div>
+            }
         </div>
         <div class="row">
             <div class="col-md-12"></div>

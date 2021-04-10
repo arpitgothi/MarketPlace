@@ -96,7 +96,7 @@
     <Property Name="PublishedDate" Type="DateTime" Precision="3" />
     <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Category" Type="Int32" Nullable="false" />
-    <Property Name="DisplayPicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DisplayPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="NoteType" Type="Int32" />
     <Property Name="NumberofPages" Type="Int32" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
@@ -107,7 +107,7 @@
     <Property Name="Professor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="IsPaid" Type="Boolean" Nullable="false" />
     <Property Name="SellingPrice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="NotesPreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NotesPreview" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="ModificationDate" Type="DateTime" Precision="3" />
@@ -212,7 +212,7 @@
     <NavigationProperty Name="tblSellerNotesReviews" Relationship="Self.FK_tblSellerNotesReviews_tblUser" FromRole="tblUser" ToRole="tblSellerNotesReviews" />
     <NavigationProperty Name="tblUserRole" Relationship="Self.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
     <NavigationProperty Name="tblUserProfiles" Relationship="Self.FK_tblUserProfile_tblUser" FromRole="tblUser" ToRole="tblUserProfile" />
-    <Property Name="ActivationCode" Type="Guid" />
+    <Property Name="ActivationCode" Type="Guid" Nullable="false" />
   </EntityType>
   <EntityType Name="tblUserProfile">
     <Key>

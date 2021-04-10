@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
-using System.Web;
+
 using System.Web.Mvc;
 
 namespace NoteMarketPlace.Controllers
@@ -54,6 +56,35 @@ namespace NoteMarketPlace.Controllers
                 obj.Message = model.Message;
                 context.tblContactUs.Add(obj);
                 context.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+
+                }
+
+
+                if (ModelState.IsValid)
+                {
+
+                    using (MailMessage m = new MailMessage("aaa@gmail.com", model.Email))
+                    {
+                        m.Subject = model.Subject;
+                        string body = "Hello " + model.Name + ",";
+                       
+
+                        m.Body = model.Message;
+                        m.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.EnableSsl = true;
+                        NetworkCredential NetworkCred = new NetworkCredential("lamdafunction@gmail.com", "*************");
+                        smtp.UseDefaultCredentials = true;
+                        smtp.Credentials = NetworkCred;
+                        smtp.Port = 587;
+                        smtp.Send(m);
+                    }
+
+                }
             }
             catch (Exception ex)
             {
@@ -71,9 +102,22 @@ namespace NoteMarketPlace.Controllers
 
         public ActionResult SearchNote()
         {
-            ViewBag.Message = "Your Search Note page.";
-            ModelState.Clear();
-            return View();
+            ViewBag.Message = "Your note page.";
+
+            List<tblSellerNote> tblSellerNotes = context.tblSellerNotes.ToList();
+            List<tblCountry> tblCountries = context.tblCountries.ToList();
+
+            var data = from c in tblSellerNotes
+                           join t1 in tblCountries on c.Country equals t1.ID
+                           where c.Status == 9
+                           select new noteData { sellerNote = c, Country = t1 };
+
+            ViewBag.Count = (from c in tblSellerNotes
+                             join t1 in tblCountries on c.Country equals t1.ID
+                             where c.Status == 9
+                             select c).Count();
+
+            return View(data);
         }
         public ActionResult noteDetails()
         {

@@ -50,9 +50,10 @@ namespace NoteMarketPlace.Database
         public Nullable<int> ModificationBy { get; set; }
         public bool IsActive { get; set; }
         public HttpPostedFileBase uploadnote { get; set; }
-
         public HttpPostedFileBase displaypic { get; set; }
         public HttpPostedFileBase notepreview { get; set; }
+        public string categoryS { get; set; }
+
         public virtual tblCountry tblCountry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDownload> tblDownloads { get; set; }

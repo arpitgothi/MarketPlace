@@ -33,6 +33,7 @@ else
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group dis">
+                                        
                                         <p>First Name*</p>
                                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "fname", @class = "form-control", @placeholder = "Enter your First Name" } })
                                         @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
@@ -47,6 +48,7 @@ else
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group dis">
+                                        @ViewBag.notvalidEmail
                                         <p>Email*</p>
                                         @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @id = "email", @class = "form-control", @placeholder = "Enter Your Email" } })
                                         @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
@@ -54,6 +56,7 @@ else
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group dis">
+                                        @ViewBag.notvalidpass
                                         <p>Password</p>
                                         @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "pswd", @class = "form-control", @type = "password", @placeholder = "Enter your Password" } })
                                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })

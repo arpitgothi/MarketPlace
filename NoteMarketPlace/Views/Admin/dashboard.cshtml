@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "publishedNotes";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    @model IEnumerable<NoteMarketPlace.Models.noteData>
+}
+
+<!-- published note -->
+<section id="a-published-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Dashboard</p>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="earning">
+                    <div class="div-content text-center">
+                        <p>20</p>
+                        <p>Numbers of Notes in Review for Publish</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="earning">
+                    <div class="div-content text-center">
+                        <p>103</p>
+                        <p>Numbers of New Notes Downloaded</p>
+                        <p>(Last 7 Days)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="earning">
+                    <div class="div-content text-center">
+                        <p>233</p>
+                        <p>Numbers of New Registration</p>
+                        <p>(Last 7 Days)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <p class="page-heading">Published Note</p>
+                <p>Seller</p>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+                </select>
+            </div>
+            @using (Html.BeginForm("dashboard", "Admin", FormMethod.Get))
+            {
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
+
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <select name="" id="" class="form-control">
+                        <option value="">
+                            January
+                        </option>
+                        <option value="">
+                            february
+                        </option>
+                        <option value="">
+                            March
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <input class="btn btn-general btn-work" type="submit" value="Search" />
+
+                </div>
+            }
+
+            <div class="col-md-12">
+                <div class="all-admin-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">SELL TYPE</th>
+                                <th scope="col">PRICE</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col">PUBLISHED DATE</th>
+                                <th scope="col">NUMBER OF DOWNLOADS</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 0;}
+                            @foreach (var n in Model)
+                            {
+                                i += 1;
+
+
+                                <tr>
+                                    <td>@i</td>
+
+                                    <td class="title">@Html.DisplayFor(modelItem => n.sellerNote.Title)</td>
+                                    <td>@Html.DisplayFor(modelItem => n.NoteCategory.Name)</td>
+
+                                    @{
+
+                                        bool isPaid = n.sellerNote.IsPaid;
+                                        if (isPaid)
+                                        {
+                                            <td>Paid</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Free</td>
+                                        }
+
+                                    }
+
+                                    <td>$@Html.DisplayFor(modelItem => n.sellerNote.SellingPrice)</td>
+                                    <td>@string.Concat(n.User.FirstName, " ", n.User.LastName)</td>
+                                    <td>@Html.DisplayFor(modelItem => n.sellerNote.PublishedDate)</td>
+                                    <td></td>
+
+
+
+                                    <td><a class="link-margin" href="#"><img src="~/img/dashboard/eye.png"></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- published notes Ends-->

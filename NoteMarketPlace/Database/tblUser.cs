@@ -39,7 +39,7 @@ namespace NoteMarketPlace.Database
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<System.Guid> ActivationCode { get; set; }
+        public System.Guid ActivationCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDownload> tblDownloads { get; set; }

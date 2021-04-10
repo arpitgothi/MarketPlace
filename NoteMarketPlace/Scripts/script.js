@@ -206,12 +206,12 @@ fixed.addEventListener('touchmove', function(e) {
 
 
 
-
+/*
 
 
 /* ============ =========== ============ 
              Login-Forgot-SignUp
-============== ========== ===========*/
+============== ========== ===========
 
 function openLogin() {
   document.getElementById("login").style.display = "block";
@@ -255,4 +255,4 @@ $("body").click(function(){
 
 
 
-
+*/
