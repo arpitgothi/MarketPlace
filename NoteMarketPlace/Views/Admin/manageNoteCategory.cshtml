@@ -1,8 +1,10 @@
-﻿
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.noteData>
 @{
     ViewBag.Title = "manageNoteCategory";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
-    @model IEnumerable<NoteMarketPlace.Models.noteData>
+
 }
 
 <!-- manage Book Category Profile -->
@@ -68,12 +70,13 @@
 
                                     <td>
                                         <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a></td>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+                                    </td>
 
                                 </tr>
                             }
 
-                        </tbody> 
+                        </tbody>
                     </table>
                 </div>
                 <div class="text-center" aria-label="Page navigation example">
@@ -91,4 +94,17 @@
         </div>
     </div>
 </section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
 <!-- manage bool category Ends -->

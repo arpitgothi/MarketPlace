@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "manageCountry";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
-    @model IEnumerable< NoteMarketPlace.Models.noteData>
+    @model IEnumerable<NoteMarketPlace.Models.noteData>
 }
 
 <!-- manage  Country -->
@@ -50,7 +50,7 @@
                                     <td>@Html.DisplayFor(modelItem => n.Country.CountryCode)</td>
                                     <td>@Html.DisplayFor(modelItem => n.Country.CreatedDate)</td>
                                     <td>
-                                        @string.Concat(n.User.FirstName , " ", n.User.LastName)
+                                        @string.Concat(n.User.FirstName, " ", n.User.LastName)
                                     </td>
                                     @{
                                         bool IsActive = n.Country.IsActive;
@@ -65,7 +65,8 @@
                                     }
                                     <td>
                                         <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a> &nbsp;&nbsp;
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a></td>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -86,4 +87,16 @@
         </div>
     </div>
 </section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <!-- manage country Ends -->

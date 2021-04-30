@@ -1,7 +1,8 @@
-﻿
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList <NoteMarketPlace.Models.noteData>
 @{
     ViewBag.Title = "dashboard";
-    @model IEnumerable<NoteMarketPlace.Models.noteData>
 }
 <style>
     .table > thead > tr > th, td {
@@ -111,7 +112,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{ int i = 0;}
+                                @{ int i = ViewBag.pcount - 1; }
                                 @foreach (var n in Model)
                                 {
                                     i += 1;

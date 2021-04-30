@@ -81,3 +81,7 @@ G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.dll
 G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.SqlServer.dll
 G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.xml
 G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\EntityFramework.SqlServer.xml
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\PagedList.dll
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\PagedList.Mvc.dll
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\PagedList.xml
+G:\TatvaSoft\NoteMarketPlace\NoteMarketPlace\bin\PagedList.Mvc.xml

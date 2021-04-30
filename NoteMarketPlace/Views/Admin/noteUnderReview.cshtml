@@ -56,7 +56,7 @@
                             {
                                 i += 1;
 
-                                
+
                                 <tr>
                                     <td style="display:none;">@n.sellerNote.ID</td>
                                     <td>@i</td>
@@ -72,21 +72,26 @@
 
                                     <td>@Html.DisplayFor(modelItem => n.referenceData.Values)</td>
 
-                                    <td><button class="btn btn-success approve-btn tbl-action-btn">Approve </button> &nbsp;&nbsp;<button class="btn btn-danger reject-btn tbl-action-btn">Reject </button> &nbsp;&nbsp;<button class="btn btn-light InReview-btn tbl-action-btn">InReview </button></td>
+                                    <td>
+                                        <button class="btn btn-success approve-btn tbl-action-btn">Approve </button> &nbsp;&nbsp;<button class="btn btn-danger reject-btn tbl-action-btn">Reject </button> &nbsp;&nbsp;
+                                        @if (n.sellerNote.Status != 8)
+                                        {<button class="btn btn-light InReview-btn tbl-action-btn">InReview </button>}
+                                    </td>
+
                                     <td class="dropdown">
                                         <div id="dots" class="mynav-dropdown">
                                             <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
                                             <div class="dropdown-menu action-menu mynav-dropdown-content dropdown-menu-right ">
-                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/showBook/@n.sellerNote.ID '">View More Details</button>
+                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/noteDetails/@n.sellerNote.ID '">View More Details</button>
                                                 <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/AdminDownload/@n.sellerNote.ID'">Download Note</button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                }
+                            }
 
 
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
                 <div class="text-center" aria-label="Page navigation example">
@@ -176,6 +181,10 @@
 
 
 </section>
+<br />
+<br />
+<br />
+
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/script.js"></script>

@@ -52,6 +52,7 @@ $(function () {
 var modal1 = document.getElementById("reject-popup");
 var modal2 = document.getElementById("Approve-popup");
 var modal3 = document.getElementById("InReview-popup");
+var modal4 = document.getElementById("removed-popup");
 // Get the button that opens the modal
 //var btn = document.getElementsByClassName("reject-btn");
 
@@ -120,11 +121,8 @@ $('.InReview-btn').unbind('click').click(function () {
 
     modal3.style.display = "block";
 
-
-
-
-
 });
+
 
 
 hide_btn(span, modal1);

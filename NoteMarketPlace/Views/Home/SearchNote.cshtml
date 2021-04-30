@@ -24,40 +24,22 @@
             </div>
             <div class="row">
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select type </option>
-
-                    </select>
+                    @Html.DropDownList("noteType", ViewBag.noteType as SelectList, "Select Type", new { @class = "form-control", onchange = "snf(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select category </option>
-
-                    </select>
+                    @Html.DropDownList("noteCategory", ViewBag.noteCategory as SelectList, "Select Category", new { @class = "form-control", onchange = "snf(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select university </option>
-
-                    </select>
+                    @Html.DropDownList("university", ViewBag.university as SelectList, "Select university", new { @class = "form-control", onchange = "snf(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select course </option>
-                        <
-                    </select>
+                    @Html.DropDownList("course", ViewBag.course as SelectList, "Select course", new { @class = "form-control", onchange = "snf(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select country </option>
-
-                    </select>
+                    @Html.DropDownList("country", ViewBag.country as SelectList, "Select country", new { @class = "form-control", onchange = "snf(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select rating </option>
-
-                    </select>
+                    @Html.DropDownList("rating", ViewBag.rating as SelectList, "Select rating", new { @class = "form-control", onchange = "snf(this)" })
                 </div>
             </div>
         </div>
@@ -66,7 +48,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 s-title">
-                    <p> Total <span>@ViewBag.Count</span> notes</p>
+                    <p> Total <span>@ViewBag.total</span> notes</p>
                 </div>
             </div>
             <div class="books">
@@ -87,7 +69,7 @@
                                                     <i class="fa fa-university"> </i>
                                                 </div>
                                                 <div class="col-md-10 col-sm-10 col-xs-10">
-                                                    @n.sellerNote.UniversityName , @n.Country.Name
+                                                    @n.sellerNote.UniversityName, @n.Country.Name
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-xs-2">
                                                     <i class="fa fa-book"> </i>
@@ -102,7 +84,7 @@
                                                     @n.sellerNote.CreatedDate
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-xs-2">
-                                                    <i class="fa fa-flag"> </i>
+                                                    <i class="fa fa-flag"></i>
                                                 </div>
                                                 <div class="col-md-10 col-sm-10 col-xs-10">
                                                     Users report about book
@@ -132,4 +114,5 @@
             </div>
         </div>
 </section>
+<script src="~/Scripts/Searchnote.js"></script>
 <!-- Search Notes Ends -->

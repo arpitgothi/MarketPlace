@@ -1,5 +1,6 @@
 ﻿using NoteMarketPlace.Database;
 using NoteMarketPlace.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,7 +35,7 @@ namespace NoteMarketPlace.Controllers
                     if (currentUserImg == null)
                     {
                         // get deafult image
-                        var defaultImg = context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "default");
+                        var defaultImg = context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "defaultProfilePicture");
                         ViewBag.UserProfile = defaultImg.Values;
                     }
                     else
@@ -44,8 +45,15 @@ namespace NoteMarketPlace.Controllers
                 }
             }
         }
+        public userController()
+        {
 
-        public ActionResult dashboard()
+            ViewBag.daefaultNoteImg = context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "defaultNoteImage").Values;
+            ViewBag.facebook = context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "facebookURL").Values;
+            ViewBag.twitter = context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "twitterURL").Values;
+            ViewBag.linkedin = context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "linkedinURL").Values;
+        }
+        public ActionResult dashboard(int? page)
         {
 
             var download = context.tblDownloads;
@@ -59,15 +67,15 @@ namespace NoteMarketPlace.Controllers
             ViewBag.RejectedNotes = sellernote.Count(m => m.SellerID == users.ID && m.Status == 10);
             ViewBag.BuyerReqs = download.Where(m => m.IsSellerHasAllowedDownload == false && m.Seller == users.ID).Count();
 
-            int pageSize = 5;
+
             var SellerList = context.tblUsers.ToList();
             SelectList list = new SelectList(SellerList, "Id", "FirstName");
             ViewBag.SellerList = list;
-            /*if (page != null)
-                ViewBag.Count = page * pageSize - pageSize + 1;
-            else*/
-            ViewBag.Count = 1;
-
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.pcount = page * pageSize - pageSize + 1;
+            else
+                ViewBag.pcount = 1;
             List<tblSellerNote> tblSellerNotesList = context.tblSellerNotes.ToList();
             List<tblUser> tblUserList = context.tblUsers.ToList();
             List<tblNoteCategory> tblNoteCategoriesList = context.tblNoteCategories.ToList();
@@ -78,7 +86,7 @@ namespace NoteMarketPlace.Controllers
                                     join t2 in tblReferenceDataList on c.Status equals t2.ID
                                     join t3 in tblNoteCategoriesList on c.Category equals t3.ID
                                     where c.Status == 7 || c.Status == 8
-                                    select new noteData { sellerNote = c, User = t1, referenceData = t2, NoteCategory = t3 }).ToList();
+                                    select new noteData { sellerNote = c, User = t1, referenceData = t2, NoteCategory = t3 }).ToList().ToPagedList(page ?? 1, pageSize);
 
             var data2 = (from c in tblSellerNotesList
                         join t1 in tblUserList on c.SellerID equals t1.ID
@@ -272,7 +280,7 @@ namespace NoteMarketPlace.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //tblSellerNote tblSeller = dbobj.tblSellerNotes.Find(id).;
+            
             var userid = context.tblUsers.Where(m => m.EmailID == User.Identity.Name && m.RoleID != 103).FirstOrDefault();
             if (userid != null)
                 goto eligible;
@@ -552,51 +560,89 @@ namespace NoteMarketPlace.Controllers
 
 
         //PROFILE
-        /*public ActionResult profile()
+        public new ActionResult Profile()
         {
             string user_email = User.Identity.Name;
             var user = context.tblUsers.Where(m => m.EmailID == user_email).FirstOrDefault();
             var user_profile = context.tblUserProfiles.Where(m => m.UserID == user.ID).FirstOrDefault();
-            ViewBag.fname = user.FirstName;
-            ViewBag.lnmae = user.LastName;
-            ViewBag.Email = user_email;
-            ViewBag.Dob = user_profile.DOB;
-            ViewBag.user_gender = user_profile.Gender;
-            ViewBag.User_code = user_profile.PhoneNumber_CountryCode;
-            ViewBag.User_phn = user_profile.PhoneNumber;
-            ViewBag.ad1 = user_profile.AddressLine1;
-            ViewBag.ad2 = user_profile.AddressLine2;
-            ViewBag.city = user_profile.City;
-            ViewBag.zip = user_profile.ZipCode;
-            ViewBag.user_country = user_profile.Country;
-            ViewBag.state = user_profile.State;
-            ViewBag.Uni = user_profile.University;
-            ViewBag.clg = user_profile.College;
+            if (user_profile != null)
+            {
+                ViewBag.fname = user.FirstName;
+                ViewBag.lnmae = user.LastName;
+                ViewBag.Email = user_email;
+
+                //DateTime date = (DateTime)user_profile.DOB;
+
+                //var k = date.Date;
+
+                ViewBag.Dob = "k";
+                ViewBag.user_gender = user_profile.Gender.ToString();
+                ViewBag.User_code = user_profile.PhoneNumber_CountryCode;
+                ViewBag.User_phn = user_profile.PhoneNumber;
+                ViewBag.ad1 = user_profile.AddressLine1;
+                ViewBag.ad2 = user_profile.AddressLine2;
+                ViewBag.city = user_profile.City;
+                ViewBag.zip = user_profile.ZipCode;
+                ViewBag.user_country = user_profile.Country;
+                ViewBag.state = user_profile.State;
+                ViewBag.Uni = user_profile.University;
+                ViewBag.clg = user_profile.College;
+                ViewBag.profileImage = user_profile.ProfilePicture;
+
+                var CountryName = context.tblCountries.ToList();
+                List<SelectListItem> CountryList = new SelectList(CountryName, "Name", "Name").ToList();
+                CountryList.RemoveAll(i => i.Value == ViewBag.user_country);
+                CountryList.Insert(0, (new SelectListItem { Text = ViewBag.user_country, Value = ViewBag.user_country }));
+                ViewBag.Country = CountryList;
 
 
-            var CountryName = context.tblCountries.ToList();
-            List<SelectListItem> CountryList = new SelectList(CountryName, "Name", "Name").ToList();
-            CountryList.RemoveAll(i => i.Value == ViewBag.user_country);
-            CountryList.Insert(0, (new SelectListItem { Text = ViewBag.user_country, Value = ViewBag.user_country }));
-            ViewBag.Country = CountryList;
+                var Gender = context.tblReferenceDatas.Where(m => m.RefCategory == "Gender").ToList();
+                List<SelectListItem> GenderList = new SelectList(Gender, "ID", "Values").ToList();
+
+                var id = Gender.Where(m => m.ID.Equals(user_profile.Gender)).FirstOrDefault();
+                GenderList.RemoveAll(i => i.Value.Equals(ViewBag.user_gender));
+                //string mm = ; //dbobj.tblReferenceDatas.Where(m => m.Values == ViewBag.user_gender).FirstOrDefault();  
+                GenderList.Insert(0, (new SelectListItem { Text = id.Values, Value = ViewBag.user_gender }));
+
+                ViewBag.Gender = GenderList;
+
+                var Countrycode = context.tblCountries.ToList();
+                List<SelectListItem> CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode").ToList();
+                CcodeList.RemoveAll(i => i.Value.Equals(ViewBag.User_code));
+
+                CcodeList.Insert(0, (new SelectListItem { Text = user_profile.PhoneNumber_CountryCode, Value = user_profile.PhoneNumber_CountryCode }));
+
+                ViewBag.Ccode = CcodeList;
+
+            }
+            else
+            {
+                ViewBag.fname = user.FirstName;
+                ViewBag.lnmae = user.LastName;
+                ViewBag.Email = user_email;
+                var CountryName = context.tblCountries.ToList();
+                SelectList CountryList = new SelectList(CountryName, "Name", "Name");
+                ViewBag.Country = CountryList;
 
 
-            var Gender = context.tblReferenceDatas.Where(m => m.RefCategory == "Gender").ToList();
-            List<SelectListItem> GenderList = new SelectList(Gender, "ID", "Values").ToList();
-            GenderList.RemoveAll(i => i.Text.Equals(ViewBag.user_gender));
-            var id = Gender.Where(m => m.Values.Equals("Female")).FirstOrDefault();
+                var Gender = context.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
 
-            int mm = ViewBag.user_gender; 
+                SelectList GenderList = new SelectList(Gender, "Values", "Values");
+                ViewBag.Gender = GenderList;
 
-            ViewBag.Gender = GenderList;
-
-            var Countrycode = context.tblCountries.ToList();
-            SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
-            ViewBag.Ccode = CcodeList;
+                var Countrycode = context.tblCountries.ToList();
+                SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
+                ViewBag.Ccode = CcodeList;
+            }
             return View();
         }
+
+
+
+
         [HttpPost]
-        public new ActionResult profile(userProfile model)
+        [ValidateAntiForgeryToken]
+        public new ActionResult Profile(Profile model)
         {
 
             var CountryName = context.tblCountries.ToList();
@@ -605,18 +651,55 @@ namespace NoteMarketPlace.Controllers
 
 
             var Gender = context.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
-
             SelectList GenderList = new SelectList(Gender, "Values", "Values");
             ViewBag.Gender = GenderList;
 
             var Countrycode = context.tblCountries.ToList();
             SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
+            ViewBag.Ccode = CcodeList;
+
+            var user = context.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
+            var userProfile = context.tblUserProfiles.Where(m => m.UserID == user.ID).FirstOrDefault();
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            userProfile.DOB = model.DOB;
+            userProfile.Gender = model.Gender;
+            userProfile.PhoneNumber_CountryCode = model.PhoneNumber_CountryCode;
+            userProfile.PhoneNumber = model.PhoneNumber;
+
+            string user_pic = null;
+            string defaultpath = Server.MapPath(string.Format("~/Content/Files/{0}", user.ID));
+            if (!Directory.Exists(defaultpath))
+            {
+                Directory.CreateDirectory(defaultpath);
+            }
+
+            if (model.ProfilePicture != null)
+            {
+
+                string notename = Path.GetFileName(model.ProfilePicture.FileName);
+                user_pic = Path.Combine(defaultpath, notename);
+                model.ProfilePicture.SaveAs(user_pic);
+                base64converter conv = new base64converter();
+                userProfile.ProfilePicture = conv.converter(user_pic);
+            }
+
+
+
+            userProfile.AddressLine1 = model.AddressLine1;
+            userProfile.AddressLine2 = model.AddressLine2;
+            userProfile.City = model.City;
+            userProfile.State = model.State;
+            userProfile.ZipCode = model.ZipCode;
+            userProfile.Country = model.Country;
+            userProfile.College = model.College;
+            userProfile.University = model.University;
+
 
             context.SaveChanges();
 
             return RedirectToAction("", "User");
-        }*/
-
+        }
 
 
     }

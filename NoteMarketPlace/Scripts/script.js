@@ -34,7 +34,7 @@ $(function () {
             $("nav").addClass("purple-nav-top");
 
             // Show dark logo
-            $(".navbar-brand img").attr("src", "img/home/logo.png");
+            $(".navbar-brand img").attr("src", "/img/home/logo.png");
 
             // Show back to top button
             $("#back-to-top").fadeIn();
@@ -45,7 +45,7 @@ $(function () {
             $("nav").removeClass("purple-nav-top");
 
             // Show logo
-            $(".navbar-brand img").attr("src", "img/home/top-logo.png");
+            $(".navbar-brand img").attr("src", "/img/home/top-logo.png");
 
             // Hide back to top button
             $("#back-to-top").fadeOut();
@@ -89,34 +89,6 @@ $(function () {
 });
 
 
-/* ================= ======================
-         Book Discription In details
-=================== =======================*/
-function openNav() {
-  document.getElementById("myNav").style.display = "block";
-   $('body').css({"overflow": "hidden"});
-
-
-}
-
-function closeNav() {
-  document.getElementById("myNav").style.display = "none";
-  $('body').css({"overflow-y": "scroll"});
-}
-
-/* close popup when click outside*/
-$(document).mouseup(function(e) 
-{
-    var container = $("#myNav");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.hide();
-        document.getElementById("thank-you").style.display = "none";
-        $('body').css({"overflow-y": "scroll"});
-    }
-});
 var fixed = document.getElementById('myNav');
 
 fixed.addEventListener('touchmove', function(e) {

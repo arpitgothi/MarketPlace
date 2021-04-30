@@ -330,7 +330,7 @@ namespace NoteMarketPlace.Controllers
         public ActionResult logout()
         {
             FormsAuthentication.SignOut();
-            return View("login","appAuth");
+            return RedirectToAction("login","appAuth");
         }
 
 

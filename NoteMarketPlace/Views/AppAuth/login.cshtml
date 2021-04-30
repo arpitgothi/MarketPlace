@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group dis">
-                                    <p>Email*</p>
+                                    
                                     @Html.LabelFor(model => model.Email)
                                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @id = "email", @class = "form-control", @placeholder = "Enter your email" } })
                                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group dis">
-                                    <p>Password*  <span>@Html.ActionLink("Forgot Password?", "ForgotPassword", "appAuth", new { @id = "forgot-pswd" }) </span></p>
+                                    <p>  <span>@Html.ActionLink("Forgot Password?", "ForgotPassword", "appAuth", new { @id = "forgot-pswd" }) </span></p>
                                     @Html.LabelFor(model => model.Password)
                                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "pswd", @class = "form-control", @placeholder = "Enter your password" } })
                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })

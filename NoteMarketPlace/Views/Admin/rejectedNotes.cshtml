@@ -54,26 +54,26 @@
                             @foreach (var n in Model)
                             {
                                 i = i + 1;
-                            <tr>
-                                <td>@i</td>
-                                <td>@Html.DisplayFor(m => n.sellerNote.Title)</td>
-                                <td>@Html.DisplayFor(m => n.NoteCategory.Name)</td>
-                                <td>@string.Concat(n.User.FirstName, " ", n.User.LastName)</td>
-                                <td>@Html.DisplayFor(m => n.sellerNote.CreatedDate)</td>
-                                <td>@string.Concat(n.actionBy.FirstName, " ", n.actionBy.LastName)</td>
-                                <td>@Html.DisplayFor(m => n.sellerNote.AdminRemarks)</td>
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@Html.DisplayFor(m => n.sellerNote.Title)</td>
+                                    <td>@Html.DisplayFor(m => n.NoteCategory.Name)</td>
+                                    <td>@string.Concat(n.User.FirstName, " ", n.User.LastName)</td>
+                                    <td>@Html.DisplayFor(m => n.sellerNote.CreatedDate)</td>
+                                    <td>@string.Concat(n.actionBy.FirstName, " ", n.actionBy.LastName)</td>
+                                    <td>@Html.DisplayFor(m => n.sellerNote.AdminRemarks)</td>
 
-                                <td class="dropdown">
+                                    <td class="dropdown">
 
-                                    <div id="dots" class="mynav-dropdown ">
-                                        <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
-                                        <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/rejecteddownload/@n.sellerNote.ID'">Download Note</button>
+                                        <div id="dots" class="mynav-dropdown ">
+                                            <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                            <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
+                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/rejecteddownload/@n.sellerNote.ID'">Download Note</button>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             }
 
 
@@ -124,4 +124,15 @@
         </div>
     </div>
 </section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <!-- a-rejected note Ends-->
